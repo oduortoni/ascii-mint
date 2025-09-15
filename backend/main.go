@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/oduortoni/ascii-mint/backend/internal/shared"
+	"github.com/oduortoni/ascii-mint/backend/api"
 )
 
 func main() {
@@ -28,6 +29,7 @@ func main() {
 		`
 		fmt.Fprintf(w, "%s", page)
 	})
+	http.HandleFunc("/api/meme/preview", api.Preview)
 
 	http.ListenAndServe(PORT, nil)
 }
