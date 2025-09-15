@@ -9,8 +9,8 @@ RUN npm ci
 # Copy source code
 COPY . .
 
-# API URL will be set via environment variable in Render
-# Don't hardcode it here - use NEXT_PUBLIC_API_URL env var
+# Set default API URL for production
+ENV NEXT_PUBLIC_API_URL=https://ascii-mint-api.onrender.com
 
 # Build the application
 RUN npm run build
