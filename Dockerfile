@@ -23,22 +23,30 @@ FROM node:20-slim
 
 WORKDIR /app
 
-# Copy Go API
+# Copy Go API and env
 COPY --from=backend /app/meme-api ./meme-api
+COPY backend/.env.production ./.env
 
-# Copy Next.js build
+# Copy Next.js build and env
 COPY --from=frontend /app/.next ./frontend/.next
 COPY --from=frontend /app/node_modules ./frontend/node_modules
 COPY --from=frontend /app/package.json ./frontend/package.json
 COPY --from=frontend /app/next.config.ts ./frontend/next.config.ts
+COPY frontend/.env.production ./frontend/.env.production
 
 # Copy public directory if it exists
 COPY --from=frontend /app/public ./frontend/public/
 
 # Create startup script
-RUN echo '#!/bin/bash\n./meme-api &\ncd frontend && npm start' > start.sh && chmod +x start.sh
+RUN <<EOF > start.sh
+#!/bin/bash
+./meme-api &
+cd frontend && PORT=${NEXT_PORT:-3000} npm start
+EOF
+RUN chmod +x start.sh
 
-# Expose port
+# Expose ports
 EXPOSE 9000
+EXPOSE 3000
 
 CMD ["./start.sh"]
