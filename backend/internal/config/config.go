@@ -40,7 +40,7 @@ func New() *AppConfig {
 
 	return &AppConfig{
 		Server: ServerConfig{
-			Port: getEnvAsInt("BACKEND_PORT", 9000),
+			Port: getEnvAsInt("PORT", 10000),
 			Host: getEnv("HOST", "0.0.0.0"),
 		},
 		Database: DatabaseConfig{

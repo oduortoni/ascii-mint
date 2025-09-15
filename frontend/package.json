@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "build": "next build --turbopack",
-    "start": "next start -p ${PORT:-3000}",
+    "start": "next start -p ${FRONTEND_PORT:-${PORT:-3000}}",
     "lint": "eslint",
-    "serve:next": "dotenv -e .env.local -- next dev -p ${PORT:-3000}",
+    "serve:next": "dotenv -e .env.local -- next dev -p ${FRONTEND_PORT:-3000}",
     "serve:go": "cd ../backend && go run .",
     "dev": "concurrently --turbopack -k -n go,next -c yellow,cyan \"npm run serve:go\" \"npm run serve:next\""
   },
