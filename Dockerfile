@@ -16,6 +16,7 @@ COPY frontend/package.json ./
 COPY frontend/package-lock.json ./
 RUN npm install
 COPY frontend/ .
+ENV NEXT_PUBLIC_API_URL=http://localhost:9000
 RUN npm run build
 
 # ---- final Stage ----
@@ -38,12 +39,13 @@ COPY --from=frontend /app/public ./frontend/public/
 # Create startup script - backend uses BACKEND_PORT, frontend uses PORT
 RUN <<EOF > start.sh
 #!/bin/bash
-PORT=\${BACKEND_PORT:-9000} ./meme-api &
-cd frontend && npm start
+BACKEND_PORT=\${BACKEND_PORT:-9000} ./meme-api &
+cd frontend && PORT=\${PORT:-3000} npm start
 EOF
 RUN chmod +x start.sh
 
-# Expose port
+# Expose ports for backend and frontend
 EXPOSE 3000
+EXPOSE 9000
 
 CMD ["./start.sh"]

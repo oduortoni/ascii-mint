@@ -5,6 +5,8 @@ services:
     build: ./backend
     ports:
       - "9000:9000"
+    environment:
+      - BACKEND_PORT=9000
 
   frontend:
     build: ./frontend
