@@ -2,7 +2,8 @@
 FROM golang:1.23 AS backend
 
 WORKDIR /app
-COPY backend/go.mod backend/go.sum ./
+COPY backend/go.mod ./
+COPY backend/go.sum ./
 RUN go mod download
 COPY backend/ .
 RUN go build -o meme-api
@@ -11,7 +12,8 @@ RUN go build -o meme-api
 FROM node:20 AS frontend
 
 WORKDIR /app
-COPY frontend/package.json frontend/package-lock.json ./
+COPY frontend/package.json ./
+COPY frontend/package-lock.json ./
 RUN npm install
 COPY frontend/ .
 RUN npm run build
@@ -26,10 +28,12 @@ COPY --from=backend /app/meme-api ./meme-api
 
 # Copy Next.js build
 COPY --from=frontend /app/.next ./frontend/.next
-COPY --from=frontend /app/public ./frontend/public
 COPY --from=frontend /app/node_modules ./frontend/node_modules
 COPY --from=frontend /app/package.json ./frontend/package.json
 COPY --from=frontend /app/next.config.ts ./frontend/next.config.ts
+
+# Copy public directory if it exists
+COPY --from=frontend /app/public ./frontend/public/ 2>/dev/null || true
 
 # Create startup script
 RUN echo '#!/bin/bash\n./meme-api &\ncd frontend && npm start' > start.sh && chmod +x start.sh
