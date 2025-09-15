@@ -17,23 +17,6 @@ export default function HomePage() {
         </p>
 
         <div className="grid gap-8 md:grid-cols-2 max-w-5xl w-full mb-12">
-          <div className="backdrop-blur-glass bg-glass-black rounded-xl p-6 border border-ashy">
-            <h2 className="font-semibold text-xl mb-4 text-matrix-green">Example Meme</h2>
-            <pre className="bg-black text-matrix-green p-4 rounded-lg overflow-x-auto border border-red-mirror">
-{`###################
-#  HODL THE LINE  #
-#   TO THE MOON   #
-###################`}
-            </pre>
-          </div>
-          <div className="backdrop-blur-glass bg-glass-black rounded-xl p-6 border border-ashy">
-            <h2 className="font-semibold text-xl mb-4 text-matrix-green">Example Banner</h2>
-            <pre className="bg-black text-matrix-green p-4 rounded-lg overflow-x-auto border border-red-mirror">
-{`***********************
-*   ASCII FOREVER     *
-***********************`}
-            </pre>
-          </div>
         </div>
 
         <Link

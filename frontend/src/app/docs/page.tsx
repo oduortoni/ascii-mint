@@ -18,7 +18,7 @@ export default function DocsPage() {
               <li>Navigate to the <span className="text-matrix-green">Create Memes</span> page</li>
               <li>Enter your meme text in the textarea</li>
               <li>Choose a frame style (Classic, Hash, or Star)</li>
-              <li>Click "Generate Preview" to see your ASCII meme</li>
+              <li>Click &quot;Generate Preview&quot; to see your ASCII meme</li>
             </ol>
           </section>
 

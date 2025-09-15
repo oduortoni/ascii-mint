@@ -31,7 +31,7 @@ export default function APIPage() {
                 <pre className="bg-black text-matrix-green p-3 rounded text-sm border border-ashy mb-4">
 {`{
   "content": "string",  // Your meme text
-  "frame": "string"     // "classic", "hash", or "star"
+  "frame": "string"     // &quot;classic&quot;, &quot;hash&quot;, or &quot;star&quot;
 }`}
                 </pre>
 
@@ -59,15 +59,15 @@ export default function APIPage() {
             <h2 className="text-2xl font-semibold text-matrix-green mb-4">Frame Types</h2>
             <div className="grid gap-4">
               <div className="flex items-center gap-4">
-                <code className="text-matrix-green bg-black px-2 py-1 rounded">"classic"</code>
+                <code className="text-matrix-green bg-black px-2 py-1 rounded">&quot;classic&quot;</code>
                 <span className="text-ashy-light">Uses + characters for borders</span>
               </div>
               <div className="flex items-center gap-4">
-                <code className="text-matrix-green bg-black px-2 py-1 rounded">"hash"</code>
+                <code className="text-matrix-green bg-black px-2 py-1 rounded">&quot;hash&quot;</code>
                 <span className="text-ashy-light">Uses # characters for borders</span>
               </div>
               <div className="flex items-center gap-4">
-                <code className="text-matrix-green bg-black px-2 py-1 rounded">"star"</code>
+                <code className="text-matrix-green bg-black px-2 py-1 rounded">&quot;star&quot;</code>
                 <span className="text-ashy-light">Uses * characters for borders</span>
               </div>
             </div>
