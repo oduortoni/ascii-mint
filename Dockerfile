@@ -17,23 +17,24 @@ COPY frontend/ .
 RUN npm run build
 
 # ---- final Stage ----
-FROM debian:bookworm-slim
+FROM node:20-slim
 
 WORKDIR /app
 
 # Copy Go API
 COPY --from=backend /app/meme-api ./meme-api
 
-# Copy Next.js output (static export)
+# Copy Next.js build
 COPY --from=frontend /app/.next ./frontend/.next
 COPY --from=frontend /app/public ./frontend/public
 COPY --from=frontend /app/node_modules ./frontend/node_modules
 COPY --from=frontend /app/package.json ./frontend/package.json
+COPY --from=frontend /app/next.config.ts ./frontend/next.config.ts
 
-# Install node for serving frontend
-RUN apt-get update && apt-get install -y nodejs npm && rm -rf /var/lib/apt/lists/*
+# Create startup script
+RUN echo '#!/bin/bash\n./meme-api &\ncd frontend && npm start' > start.sh && chmod +x start.sh
 
-# Expose ports
-EXPOSE 8080
+# Expose port
+EXPOSE 9000
 
-CMD ./meme-api &
+CMD ["./start.sh"]
