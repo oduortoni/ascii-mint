@@ -40,7 +40,8 @@ COPY --from=frontend /app/public ./frontend/public/
 RUN <<EOF > start.sh
 #!/bin/bash
 BACKEND_PORT=\${BACKEND_PORT:-9000} ./meme-api &
-cd frontend && PORT=\${PORT:-3000} npm start
+cd frontend && PORT=\${PORT:-3000} npm start &
+wait
 EOF
 RUN chmod +x start.sh
 
