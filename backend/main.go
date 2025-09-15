@@ -11,8 +11,8 @@ import (
 
 func main() {
 	cfg := config.New()
-	PORT := fmt.Sprintf(":%d", cfg.Server.Port)
-	fmt.Println("Server running on port: ", PORT)
+	port := fmt.Sprintf(":%d", cfg.Server.Port)
+	fmt.Println("Server running on port: ", port)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		page := `
@@ -32,5 +32,5 @@ func main() {
 	})
 	http.HandleFunc("/api/meme/preview", middleware.CORS(cfg)(api.Preview))
 
-	http.ListenAndServe(PORT, nil)
+	http.ListenAndServe(port, nil)
 }
