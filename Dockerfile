@@ -1,5 +1,5 @@
 # ---- backend (Go) ----
-FROM golang:1.22 AS backend
+FROM golang:1.23 AS backend
 
 WORKDIR /app
 COPY backend/go.mod backend/go.sum ./
