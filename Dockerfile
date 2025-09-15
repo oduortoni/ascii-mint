@@ -33,7 +33,7 @@ COPY --from=frontend /app/package.json ./frontend/package.json
 COPY --from=frontend /app/next.config.ts ./frontend/next.config.ts
 
 # Copy public directory if it exists
-COPY --from=frontend /app/public ./frontend/public/ 2>/dev/null || true
+COPY --from=frontend /app/public ./frontend/public/
 
 # Create startup script
 RUN echo '#!/bin/bash\n./meme-api &\ncd frontend && npm start' > start.sh && chmod +x start.sh
