@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/oduortoni/ascii-mint/backend/internal/shared"
+	"github.com/oduortoni/ascii-mint/backend/internal/config"
 	"github.com/oduortoni/ascii-mint/backend/internal/middleware"
 	"github.com/oduortoni/ascii-mint/backend/api"
 )
 
 func main() {
-	port := shared.Port(9000)
-	PORT := fmt.Sprintf(":%d", port)
+	cfg := config.New()
+	PORT := fmt.Sprintf(":%d", cfg.Server.Port)
 	fmt.Println("Server running on port: ", PORT)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -30,7 +30,7 @@ func main() {
 		`
 		fmt.Fprintf(w, "%s", page)
 	})
-	http.HandleFunc("/api/meme/preview", middleware.CORS(api.Preview))
+	http.HandleFunc("/api/meme/preview", middleware.CORS(cfg)(api.Preview))
 
 	http.ListenAndServe(PORT, nil)
 }
