@@ -11,7 +11,8 @@ export default function MemesPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:9000/api/meme/preview", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:9000";
+      const res = await fetch(`${apiUrl}/api/meme/preview`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content, frame }),
