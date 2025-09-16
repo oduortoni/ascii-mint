@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start -p ${FRONTEND_PORT:-${PORT:-3000}}",
     "lint": "eslint",
     "serve:next": "dotenv -e .env.local -- next dev -p ${FRONTEND_PORT:-3000}",
