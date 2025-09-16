@@ -33,8 +33,8 @@ export default function LoginPage() {
       localStorage.setItem("user", JSON.stringify(data.user));
       
       window.location.href = "/memes";
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Login failed');
     } finally {
       setLoading(false);
     }

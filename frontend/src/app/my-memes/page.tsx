@@ -43,8 +43,8 @@ export default function MyMemesPage() {
 
       const data = await res.json();
       setMemes(data.memes || []);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch memes');
     } finally {
       setLoading(false);
     }
