@@ -19,9 +19,9 @@ func main() {
 	port := fmt.Sprintf(":%d", cfg.Server.Port)
 	fmt.Println("Server running on port: ", port)
 
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(cfg.Database.DSN))
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(cfg.Database.MongoURI))
 	if err != nil {
-		log.Fatal("Failed to connect to MongoDB:", err)
+		log.Fatalf("Failed to connect to MongoDB: %v", err)
 	}
 	defer client.Disconnect(context.TODO())
 

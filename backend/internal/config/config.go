@@ -21,7 +21,8 @@ type ServerConfig struct {
 }
 
 type DatabaseConfig struct {
-	DSN string
+	DSN     string
+	MongoURI string
 }
 
 type AuthConfig struct {
@@ -44,7 +45,8 @@ func New() *AppConfig {
 			Host: getEnv("HOST", "0.0.0.0"),
 		},
 		Database: DatabaseConfig{
-			DSN: getEnv("DATABASE_DSN", "database.sqlite"),
+			DSN:      getEnv("DATABASE_DSN", "database.sqlite"),
+			MongoURI: getEnv("MONGO_URI", "mongodb://localhost:27017"),
 		},
 		Auth: AuthConfig{
 			JWTSecret:       getEnv("JWT_SECRET", "an very long crazy secret init"),
@@ -69,4 +71,12 @@ func getEnvAsInt(key string, defaultValue int) int {
 		return value
 	}
 	return defaultValue
+}
+
+func getEnvRequired(key string) string {
+	if value, exists := os.LookupEnv(key); exists && value != "" {
+		return value
+	}
+	log.Fatalf("%s environment variable is required but not set", key)
+	return ""
 }
