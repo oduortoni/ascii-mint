@@ -12,15 +12,30 @@ export default function MemesPage() {
     e.preventDefault();
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:9000";
-      const res = await fetch(`${apiUrl}/api/meme/preview`, {
+      const token = localStorage.getItem("token");
+      
+      if (!token) {
+        window.location.href = "/auth/login";
+        return;
+      }
+
+      const res = await fetch(`${apiUrl}/api/meme/save`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
         body: JSON.stringify({ content, frame }),
       });
+      
+      if (!res.ok) {
+        throw new Error("Failed to save meme");
+      }
+      
       const data = await res.json();
-      setPreview(data.preview);
+      setPreview(data.rendered);
     } catch (err) {
-      console.error("Error fetching preview:", err);
+      console.error("Error saving meme:", err);
     }
   };
 
@@ -70,9 +85,9 @@ export default function MemesPage() {
 
               <button 
                 type="submit"
-                className="w-full bg-glass-black border-matrix-green hover:text-matrix-green cursor-pointer text-white py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 border border-ashy"
+                className="w-full bg-red-mirror hover:bg-red-mirror-light text-white py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 border border-ashy"
               >
-                Generate Preview
+                Create & Save Meme
               </button>
             </form>
           </div>
@@ -80,7 +95,7 @@ export default function MemesPage() {
           {/* Preview Section */}
           <div className="backdrop-blur-glass bg-glass-black rounded-xl p-6 border border-ashy">
             <h3 className="text-matrix-green font-semibold mb-4 text-xl">
-              Preview
+              Your Meme
             </h3>
             {preview ? (
               <pre className="bg-black text-matrix-green p-4 rounded-lg overflow-x-auto border border-ashy font-mono text-sm">
@@ -89,7 +104,7 @@ export default function MemesPage() {
             ) : (
               <div className="bg-black border border-ashy rounded-lg p-8 text-center">
                 <p className="text-ashy font-mono">
-                  Your ASCII meme will appear here...
+                  Your saved ASCII meme will appear here...
                 </p>
               </div>
             )}

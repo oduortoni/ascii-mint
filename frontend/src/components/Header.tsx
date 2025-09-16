@@ -22,11 +22,17 @@ export default function Header() {
             <Link href="/memes" className="text-matrix-green hover:text-matrix-green-dim transition-colors">
               Create Memes
             </Link>
+            <Link href="/my-memes" className="text-matrix-green hover:text-matrix-green-dim transition-colors">
+              My Memes
+            </Link>
             <Link href="/docs" className="text-matrix-green hover:text-matrix-green-dim transition-colors">
               Docs
             </Link>
             <Link href="/api" className="text-matrix-green hover:text-matrix-green-dim transition-colors">
               API
+            </Link>
+            <Link href="/auth/login" className="text-matrix-green hover:text-matrix-green-dim transition-colors">
+              Login
             </Link>
           </div>
 
@@ -64,6 +70,13 @@ export default function Header() {
                 Create Memes
               </Link>
               <Link
+                href="/my-memes"
+                className="block px-3 py-2 text-matrix-green hover:text-matrix-green-dim transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                My Memes
+              </Link>
+              <Link
                 href="/docs"
                 className="block px-3 py-2 text-matrix-green hover:text-matrix-green-dim transition-colors"
                 onClick={() => setIsOpen(false)}
@@ -76,6 +89,13 @@ export default function Header() {
                 onClick={() => setIsOpen(false)}
               >
                 API
+              </Link>
+              <Link
+                href="/auth/login"
+                className="block px-3 py-2 text-matrix-green hover:text-matrix-green-dim transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Login
               </Link>
             </div>
           </div>
